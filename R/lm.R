@@ -27,13 +27,14 @@ my_lm = function(response, covariates, alpha = 0.05) {
   ci.beta <- c(beta.hat - qnorm(p = quant)*sqrt(var.beta), beta.hat +
                  qnorm(p = quant)*sqrt(var.beta))
 
-  # Return all estimated values
-  # return(list(beta = beta.hat, sigma2 = sigma2.hat,
-  #             variance_beta = var.beta, ci = ci.beta))
-
-  # Create myLm class object to hold output
-  values = list(beta = beta.hat, sigma2 = sigma2.hat, variance_beta = var.beta,
-       ci = ci.beta)
+  # Create myLm class object
+  values = list(
+    beta = beta.hat[1,1],
+    sigma2 = sigma2.hat,
+    variance_beta = var.beta,
+    ci = ci.beta,
+    residuals = resid,
+    predictors = covariates)
   class(values) <- "myLm"
 
   return(values)
@@ -48,17 +49,22 @@ print.myLm = function(x) {
 
 # Residuals vs Fitted Plot
 plot.myLm = function(x) {
-
+  fittedValues = x$predictors * x$beta
+  p = plot(fittedValues, x$residuals)
+  return(p)
 }
 
 # qqPlot
-qqPlot.myLm = function(x) {
-
+qqPlot = function(x) {
+  stopifnot(class(x) == "myLm")
+  p = qqnorm(x$residuals)
+  qqline(x$residuals)
+  return(p)
 }
 
 # Plot histogram with residuals
 hist.myLm = function(x) {
-
+  hist(x$residuals)
 }
 
 
@@ -67,12 +73,9 @@ library(gamair)
 data(hubble)
 fit = my_lm(hubble$y,hubble$x)
 
-
 fit
-
-
-
-
-
+plot(fit)
+qqPlot(fit)
+hist(fit)
 
 

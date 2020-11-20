@@ -24,6 +24,7 @@ myLm = function(response, covariates) {
 
   # Estimate of the residual variance (sigma2) from Eq. (6.3)
   # Compute residuals
+  yHat=covariates%*%as.matrix(beta.hat)
   resid <- response - covariates%*%as.matrix(beta.hat)
   sigma2.hat <- (1/df)*t(resid)%*%resid
   sigma.hat = sigma2.hat^0.5
@@ -34,7 +35,7 @@ myLm = function(response, covariates) {
   var.beta <- as.numeric(sigma2.hat)*(solve(t(covariates)%*%covariates))
 
   
-
+  
 
   # Create myLm class object
   values = list(
@@ -46,7 +47,8 @@ myLm = function(response, covariates) {
     residuals = resid,
     predictors = covariates,
     y=response,
-    df=df)
+    df=df,
+    yHat=yHat)
   class(values) <- "myLm"
 
   return(values)
@@ -89,7 +91,8 @@ confint.myLm=function(x,alpha=0.05,approach=c("asymp","boot")){
 
 # Residuals vs Fitted Plot
 plot.myLm = function(x) {
-  fittedValues = x$predictors * x$beta
+  #fittedValues = x$predictors * x$beta
+  fittedvalues=x$yHat
   p = plot(fittedValues, x$residuals)
   return(p)
 }

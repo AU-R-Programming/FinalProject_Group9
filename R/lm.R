@@ -34,7 +34,7 @@ myLm = function(response, covariates) {
   #var.beta=A%*%t(A)%*%sigma2.hat
   var.beta <- as.numeric(sigma2.hat)*(solve(t(covariates)%*%covariates))
 
-  
+  MSPE=1/n*sum(resid^2)
   
 
   # Create myLm class object
@@ -48,7 +48,8 @@ myLm = function(response, covariates) {
     predictors = covariates,
     y=response,
     df=df,
-    yHat=yHat)
+    yHat=yHat,
+    MSPE=MSPE)
   class(values) <- "myLm"
 
   return(values)

@@ -8,12 +8,14 @@ myLm = function(response, covariates) {
   response <- as.vector(response)
   covariates <- as.matrix(covariates)
 
-  #add column of 1s for intercept
-  covariates=cbind(rep(1,n),covariates)  
-  
   # Define parameters
   n <- length(response)
   p <- dim(covariates)[2]
+  
+  #add column of 1s for intercept
+  covariates=cbind(rep(1,n),covariates)  
+  
+  
   df <- n - p
   
 

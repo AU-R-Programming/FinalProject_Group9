@@ -8,14 +8,15 @@ myLm = function(response, covariates) {
   response <- as.vector(response)
   covariates <- as.matrix(covariates)
 
-  # Define parameters
+
+  # Define sample size
   n <- length(response)
-  p <- dim(covariates)[2]
   
   #add column of 1s for intercept
   covariates=cbind(rep(1,n),covariates)  
   
-  
+  #Define parameters
+  p <- dim(covariates)[2]
   df <- n - p
   
 
@@ -63,7 +64,7 @@ print.myLm = function(x) {
 }
 
 #calculate confindence intervals using asymptotic or bootstrap methods
-confint.myLm=function(x,alpha=0.05,approach=c("asymp","boot")){
+confint.myLm=function(x,alpha=0.05,approach="asymp"){
   quant <- 1 - alpha/2
   if(approach=="asymp"){
     #ci.beta <- c(beta.hat - qnorm(p = quant)*sqrt(var.beta), beta.hat +

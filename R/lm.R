@@ -15,6 +15,7 @@ myLm = function(response, covariates) {
   #add column of 1s for intercept
   covariates=cbind(rep(1,n),covariates)  
   
+  
   #Define parameters
   p <- dim(covariates)[2]
   df <- n - p
@@ -35,12 +36,23 @@ myLm = function(response, covariates) {
   #var.beta=A%*%t(A)%*%sigma2.hat
   var.beta <- as.numeric(sigma2.hat)*(solve(t(covariates)%*%covariates))
 
+  #Compute the Mean Square Prediction Error
   MSPE=1/n*sum(resid^2)
+  
+  #Compute the F-statistic
+  yBar=mean(response)
+  SSM=sum((covariates%*%as.matrix(beta.hat)-yBar)^2)
+  SSE=sum(resid^2)
+  DFM=p-1
+  DFE=n-p
+  MSM=SSM/DFM
+  MSE=SSE/DFE
+  FStat=MSM/MSE
+  Pvalue=pf(FStat,df1=DFM,df2=DFE,lower.tail=FALSE)
   
 
   # Create myLm class object
   values = list(
-    #beta = beta.hat[1,1],
     betas=beta.hat,
     sigma2 = sigma2.hat,
     variance_beta = var.beta,
@@ -50,7 +62,11 @@ myLm = function(response, covariates) {
     y=response,
     df=df,
     yHat=yHat,
-    MSPE=MSPE)
+    MSPE=MSPE,
+    SSM=SSM,
+    SSE=SSE,
+    FStatistic=FStat,
+    Pvalue=Pvalue)
   class(values) <- "myLm"
 
   return(values)
@@ -95,7 +111,7 @@ confint.myLm=function(x,alpha=0.05,approach="asymp"){
 plot.myLm = function(x) {
   #fittedValues = x$predictors * x$beta
   fittedvalues=x$yHat
-  p = plot(fittedValues, x$residuals)
+  p = plot(fittedvalues, x$residuals)
   return(p)
 }
 

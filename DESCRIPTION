@@ -1,5 +1,5 @@
-Package: FinalProjectGroup9
-Type: Package
+Package: PackageGroup9
+Type: This is package for XYZ purpose
 Title: What the Package Does (Title Case)
 Version: 0.1.0
 Author: Who wrote it
@@ -9,3 +9,7 @@ Description: More about what it does (maybe more than one line)
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
+Imports:
+ quantmod, gamair, knitr, tidyverse, rvest
+Suggest: 
+ knitr

@@ -1,1 +1,6 @@
-exportPattern("^[[:alpha:]]+")
+export(myLm)
+export(print.myLm)
+export(plot.myLm)
+export(qqPlot)
+export(hist.myLm)
+export(confint.myLm)

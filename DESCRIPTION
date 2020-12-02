@@ -1,16 +1,12 @@
-Package: PackageGroup9
-Type: This is package for performing linear regression 
-Title: Linear Regression 
+Package: Group9LinearModel 
+Type: Package
+Title: Least Squares Regression 
 Version: 0.1.0
 Author: Todd Steury, Luke Dolan, Kerry Cobb 
-Maintainer: No longer maintained 
-Description: This package is for performing least squares regression. Can 
-compute confidence intervals and perform basic plotting functions.
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: Tool for least squares linear regression. 
 License: MIT 
 Encoding: UTF-8
 LazyData: true
-#Imports:
-# quantmod, gamair, knitr, tidyverse, rvest
-Suggests: 
- knitr, rmarkdown
+Suggests: knitr, rmarkdown
 VignetteBuilder: knitr

@@ -2,7 +2,7 @@
 
 myLm = function(response, covariates) {
 
-  
+
   ### Much of this code was modified from the textbook for the course
   # Make sure data formats are appropriate
   response <- as.vector(response)
@@ -11,15 +11,15 @@ myLm = function(response, covariates) {
 
   # Define sample size
   n <- length(response)
-  
+
   #add column of 1s for intercept
-  covariates=cbind(rep(1,n),covariates)  
-  
-  
+  covariates=cbind(rep(1,n),covariates)
+
+
   #Define parameters
   p <- dim(covariates)[2]
   df <- n - p
-  
+
 
   # Estimate beta through Eq. (6.1)
   beta.hat <- solve(t(covariates)%*%covariates)%*%t(covariates)%*%response
@@ -38,7 +38,7 @@ myLm = function(response, covariates) {
 
   #Compute the Mean Square Prediction Error
   MSPE=1/n*sum(resid^2)
-  
+
   #Compute the F-statistic
   yBar=mean(response)
   SSM=sum((covariates%*%as.matrix(beta.hat)-yBar)^2)
@@ -49,7 +49,7 @@ myLm = function(response, covariates) {
   MSE=SSE/DFE
   FStat=MSM/MSE
   Pvalue=pf(FStat,df1=DFM,df2=DFE,lower.tail=FALSE)
-  
+
 
   # Create myLm class object
   values = list(
@@ -104,7 +104,7 @@ confint.myLm=function(x,alpha=0.05,approach="asymp"){
   }
   return(ci.betas)
 }
-  
+
 
 # Residuals vs Fitted Plot
 plot.myLm = function(x) {
@@ -127,10 +127,11 @@ hist.myLm = function(x) {
 
 
 
-# library(gamair)
-# data(hubble)
-# fit = myLm(hubble$y,hubble$x)
-# confint(fit)
+library(MASS)
+data(Boston)
+fit = myLm(Boston$crim,Boston[c("age", "medv")])
+confint(fit)
+
 # fit
 # plot(fit)
 # qqPlot(fit)

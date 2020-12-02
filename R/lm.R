@@ -56,7 +56,6 @@ myLm = function(response, covariates) {
     betas=beta.hat,
     sigma2 = sigma2.hat,
     variance_beta = var.beta,
-    #ci = ci.beta,
     residuals = resid,
     predictors = covariates,
     y=response,
@@ -72,14 +71,14 @@ myLm = function(response, covariates) {
   return(values)
 }
 
-print.myLm = function(x) {
-  cat("Beta: ", x$beta, "\n")
-  cat("Sigma^2: ", x$sigma2, "\n")
-  cat("Variance Beta: ", x$variance_beta, "\n")
-  cat("Confidence Interval: ", x$ci[1], "-", x$ci[2], "\n")
-}
+# print.myLm = function(x) {
+#   cat("Beta: ", x$beta, "\n")
+#   cat("Sigma^2: ", x$sigma2, "\n")
+#   cat("Variance Beta: ", x$variance_beta, "\n")
+#   cat("Confidence Interval: ", x$ci[1], "-", x$ci[2], "\n")
+# }
 
-#calculate confindence intervals using asymptotic or bootstrap methods
+#calculate confidence intervals using asymptotic or bootstrap methods
 confint.myLm=function(x,alpha=0.05,approach="asymp"){
   quant <- 1 - alpha/2
   if(approach=="asymp"){
@@ -109,7 +108,6 @@ confint.myLm=function(x,alpha=0.05,approach="asymp"){
 
 # Residuals vs Fitted Plot
 plot.myLm = function(x) {
-  #fittedValues = x$predictors * x$beta
   fittedvalues=x$yHat
   p = plot(fittedvalues, x$residuals)
   return(p)
@@ -117,7 +115,6 @@ plot.myLm = function(x) {
 
 # qqPlot
 qqPlot = function(x) {
-  stopifnot(class(x) == "myLm")
   p = qqnorm(x$residuals)
   qqline(x$residuals)
   return(p)
@@ -130,13 +127,13 @@ hist.myLm = function(x) {
 
 
 
-library(gamair)
-data(hubble)
-fit = myLm(hubble$y,hubble$x)
-
-fit
-plot(fit)
-qqPlot(fit)
-hist(fit)
+# library(gamair)
+# data(hubble)
+# fit = myLm(hubble$y,hubble$x)
+# confint(fit)
+# fit
+# plot(fit)
+# qqPlot(fit)
+# hist(fit)
 
 

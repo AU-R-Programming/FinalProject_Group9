@@ -1,15 +1,16 @@
 Package: PackageGroup9
-Type: This is package for XYZ purpose
-Title: What the Package Does (Title Case)
+Type: This is package for performing linear regression 
+Title: Linear Regression 
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Todd Steury, Luke Dolan, Kerry Cobb 
+Maintainer: No longer maintained 
+Description: This package is for performing least squares regression. Can 
+compute confidence intervals and perform basic plotting functions.
+License: MIT 
 Encoding: UTF-8
 LazyData: true
-Imports:
- quantmod, gamair, knitr, tidyverse, rvest
-Suggest: 
- knitr
+#Imports:
+# quantmod, gamair, knitr, tidyverse, rvest
+Suggests: 
+ knitr, rmarkdown
+VignetteBuilder: knitr

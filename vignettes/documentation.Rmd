@@ -1,0 +1,29 @@
+---
+title: "Group 9 Final Project"
+author: "Kerry Cobb, Luke Dolan, Todd Steury"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Group 9 Final Project}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+```{r}
+library(gamair)
+data(hubble)
+fit = myLm(hubble$y,hubble$x)
+confint(fit)
+fit
+plot(fit)
+qqPlot(fit)
+hist(fit)
+```

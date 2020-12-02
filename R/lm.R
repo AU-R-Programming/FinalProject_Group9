@@ -2,12 +2,12 @@
 
 myLm = function(response, covariates) {
 
+  stopifnot(nrow(response) == nrow(covariates))
 
   ### Much of this code was modified from the textbook for the course
   # Make sure data formats are appropriate
   response <- as.vector(response)
   covariates <- as.matrix(covariates)
-
 
   # Define sample size
   n <- length(response)
@@ -15,14 +15,13 @@ myLm = function(response, covariates) {
   #add column of 1s for intercept
   covariates=cbind(rep(1,n),covariates)
 
-
   #Define parameters
   p <- dim(covariates)[2]
   df <- n - p
 
-
   # Estimate beta through Eq. (6.1)
   beta.hat <- solve(t(covariates)%*%covariates)%*%t(covariates)%*%response
+  rownames(beta.hat)[1] = "intercept"
 
   # Estimate of the residual variance (sigma2) from Eq. (6.3)
   # Compute residuals
@@ -50,7 +49,6 @@ myLm = function(response, covariates) {
   FStat=MSM/MSE
   Pvalue=pf(FStat,df1=DFM,df2=DFE,lower.tail=FALSE)
 
-
   # Create myLm class object
   values = list(
     betas=beta.hat,
@@ -71,15 +69,20 @@ myLm = function(response, covariates) {
   return(values)
 }
 
-# print.myLm = function(x) {
-#   cat("Beta: ", x$beta, "\n")
-#   cat("Sigma^2: ", x$sigma2, "\n")
-#   cat("Variance Beta: ", x$variance_beta, "\n")
-#   cat("Confidence Interval: ", x$ci[1], "-", x$ci[2], "\n")
-# }
+print.myLm = function(x) {
+  cat("Coefficients:\n")
+  cat("-------------\n")
+  ids = rownames(x$betas)
+  for (i in 1:length(ids)) {
+    cat(ids[i], ": ", x$betas[i], "\n")
+  }
+}
 
 #calculate confidence intervals using asymptotic or bootstrap methods
 confint.myLm=function(x,alpha=0.05,approach="asymp"){
+  stopifnot(alpha > 0 && alpha < 1)
+  stopifnot(is.element(approach, c("asymp", "boot")))
+
   quant <- 1 - alpha/2
   if(approach=="asymp"){
     #ci.beta <- c(beta.hat - qnorm(p = quant)*sqrt(var.beta), beta.hat +
@@ -102,6 +105,7 @@ confint.myLm=function(x,alpha=0.05,approach="asymp"){
     ci.betas[2,]=quantile(betaMatrix[,2],probs=c(1-quant,quant))
     ci.betas[3,]=quantile(betaMatrix[,3],probs=c(1-quant,quant))
   }
+  rownames(ci.betas) <- rownames(x$betas)
   return(ci.betas)
 }
 
@@ -109,15 +113,13 @@ confint.myLm=function(x,alpha=0.05,approach="asymp"){
 # Residuals vs Fitted Plot
 plot.myLm = function(x) {
   fittedvalues=x$yHat
-  p = plot(fittedvalues, x$residuals)
-  return(p)
+  plot(fittedvalues, x$residuals)
 }
 
 # qqPlot
 qqPlot = function(x) {
-  p = qqnorm(x$residuals)
+  qqnorm(x$residuals)
   qqline(x$residuals)
-  return(p)
 }
 
 # Plot histogram with residuals
@@ -130,11 +132,22 @@ hist.myLm = function(x) {
 library(MASS)
 data(Boston)
 fit = myLm(Boston$crim,Boston[c("age", "medv")])
-confint(fit)
+fit
 
-# fit
-# plot(fit)
-# qqPlot(fit)
-# hist(fit)
+confint(fit)
+confint(fit, alpha=.1)
+confint(fit, alpha=.1, approach="boot")
+
+plot(fit)
+qqPlot(fit)
+hist(fit)
+
+
+
+
+
+
+
+
 
 

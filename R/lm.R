@@ -2,12 +2,15 @@
 
 myLm = function(response, covariates) {
 
-  stopifnot(nrow(response) == nrow(covariates))
+  stopifnot(length(response) == nrow(covariates))
+  
 
   ### Much of this code was modified from the textbook for the course
   # Make sure data formats are appropriate
   response <- as.vector(response)
   covariates <- as.matrix(covariates)
+  
+  
 
   # Define sample size
   n <- length(response)
@@ -21,7 +24,7 @@ myLm = function(response, covariates) {
 
   # Estimate beta through Eq. (6.1)
   beta.hat <- solve(t(covariates)%*%covariates)%*%t(covariates)%*%response
-  rownames(beta.hat)[1] = "intercept"
+  #rownames(beta.hat)[1] = "intercept"
 
   # Estimate of the residual variance (sigma2) from Eq. (6.3)
   # Compute residuals
@@ -101,9 +104,9 @@ confint.myLm=function(x,alpha=0.05,approach="asymp"){
       betaMatrix[i,]=tempResults
     }
     ci.betas=matrix(NA,length(x$predictors[1,]),2)
-    ci.betas[1,]=quantile(betaMatrix[,1],probs=c(1-quant,quant))
-    ci.betas[2,]=quantile(betaMatrix[,2],probs=c(1-quant,quant))
-    ci.betas[3,]=quantile(betaMatrix[,3],probs=c(1-quant,quant))
+    for(i in 1:length(x$predictors[1,])){
+      ci.betas[i,]=quantile(betaMatrix[,i],probs=c(1-quant,quant))
+    }
   }
   rownames(ci.betas) <- rownames(x$betas)
   return(ci.betas)

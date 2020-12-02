@@ -1,5 +1,5 @@
 ---
-title: "Group 9 Final Project"
+title: "Group 9 Final Project Submission"
 author: "Kerry Cobb, Luke Dolan, Todd Steury"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

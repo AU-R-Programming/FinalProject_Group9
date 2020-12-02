@@ -3,14 +3,14 @@
 myLm = function(response, covariates) {
 
   stopifnot(length(response) == nrow(covariates))
-  
+
 
   ### Much of this code was modified from the textbook for the course
   # Make sure data formats are appropriate
   response <- as.vector(response)
   covariates <- as.matrix(covariates)
-  
-  
+
+
 
   # Define sample size
   n <- length(response)
@@ -24,7 +24,7 @@ myLm = function(response, covariates) {
 
   # Estimate beta through Eq. (6.1)
   beta.hat <- solve(t(covariates)%*%covariates)%*%t(covariates)%*%response
-  #rownames(beta.hat)[1] = "intercept"
+  rownames(beta.hat)[1] = "intercept"
 
   # Estimate of the residual variance (sigma2) from Eq. (6.3)
   # Compute residuals
@@ -130,27 +130,17 @@ hist.myLm = function(x) {
   hist(x$residuals,xlab="residuals")
 }
 
-
-
-library(MASS)
-data(Boston)
-fit = myLm(Boston$crim,Boston[c("age", "medv")])
-fit
-
-confint(fit)
-confint(fit, alpha=.1)
-confint(fit, alpha=.1, approach="boot")
-
-plot(fit)
-qqPlot(fit)
-hist(fit)
-
-
-
-
-
-
-
-
-
+# library(MASS)
+# library(Group9LinearModel)
+# data(Boston)
+# fit = myLm(Boston$crim,Boston[c("age", "medv")])
+# fit
+#
+# confint(fit)
+# confint(fit, alpha=.1)
+# confint(fit, alpha=.1, approach="boot")
+#
+# plot(fit)
+# qqPlot(fit)
+# hist(fit)
 

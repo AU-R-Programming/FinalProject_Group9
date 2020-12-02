@@ -18,18 +18,18 @@ knitr::opts_chunk$set(
 
 
 ```{r}
-library(FinalProjectGroup9)
 library(MASS)
+library(Group9LinearModel)
 data(Boston)
-fit = myLm(Boston$crim,Boston[c("age", "medv")])
+fit = myLm(Boston$crim, Boston[c("age", "medv")])
 fit
 
-confint(fit)
-confint(fit, alpha=.1)
-confint(fit, alpha=.1, approach="boot")
-
-plot(fit)
-qqPlot(fit)
-hist(fit)
+# confint(fit)
+# confint(fit, alpha=.1)
+# confint(fit, alpha=.1, approach="boot")
+# 
+# plot(fit)
+# qqPlot(fit)
+# hist(fit)
 
 ```

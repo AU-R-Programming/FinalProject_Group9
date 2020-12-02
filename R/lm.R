@@ -116,7 +116,7 @@ confint.myLm=function(x,alpha=0.05,approach="asymp"){
 # Residuals vs Fitted Plot
 plot.myLm = function(x) {
   fittedvalues=x$yHat
-  plot(fittedvalues, x$residuals)
+  plot(fittedvalues, x$residuals,ylab="residuals",xlab="Fitted Y Values")
 }
 
 # qqPlot
@@ -127,7 +127,7 @@ qqPlot = function(x) {
 
 # Plot histogram with residuals
 hist.myLm = function(x) {
-  hist(x$residuals)
+  hist(x$residuals,xlab="residuals")
 }
 
 

@@ -19,3 +19,6 @@ confint(fit, alpha=.1, approach="boot")
 plot(fit)
 qqPlot(fit)
 hist(fit)
+
+
+?Group9LinearModel

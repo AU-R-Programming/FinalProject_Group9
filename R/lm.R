@@ -108,6 +108,7 @@ confint.myLm=function(x,alpha=0.05,approach="asymp"){
       ci.betas[i,]=quantile(betaMatrix[,i],probs=c(1-quant,quant))
     }
   }
+  colnames(ci.betas)=c("lwr","upr")
   rownames(ci.betas) <- rownames(x$betas)
   return(ci.betas)
 }

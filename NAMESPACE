@@ -1,6 +1,6 @@
-export(myLm)
-export(print.myLm)
-export(plot.myLm)
-export(qqPlot)
-export(hist.myLm)
-export(confint.myLm)
+export(myLm, print.myLm, confint.myLm, plot.myLm, qqPlot, hist.myLm)
+
+S3method(print, myLm)
+S3method(confint, myLm)
+S3method(plot, myLm)
+S3method(hist, myLm)

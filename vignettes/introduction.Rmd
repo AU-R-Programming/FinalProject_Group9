@@ -22,15 +22,14 @@ library(MASS)
 library(Group9LinearModel)
 data(Boston)
 fit = myLm(Boston$crim, Boston[c("age", "medv")])
+fit
 
-print.myLm(fit)
+confint(fit)
+confint(fit, alpha=.1)
+confint(fit, alpha=.1, approach="boot")
 
-confint.myLm(fit)
-confint.myLm(fit, alpha=.1)
-confint.myLm(fit, alpha=.1, approach="boot")
-
-plot.myLm(fit)
+plot(fit)
 qqPlot(fit)
-hist.myLm(fit)
+hist(fit)
 
 ```

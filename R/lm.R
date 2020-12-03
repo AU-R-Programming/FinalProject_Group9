@@ -4,13 +4,10 @@ myLm = function(response, covariates) {
 
   stopifnot(length(response) == nrow(covariates))
 
-
   ### Much of this code was modified from the textbook for the course
   # Make sure data formats are appropriate
   response <- as.vector(response)
   covariates <- as.matrix(covariates)
-
-
 
   # Define sample size
   n <- length(response)

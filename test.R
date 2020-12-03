@@ -9,16 +9,16 @@ install.packages("/Users/kerry/Dropbox/repos/r-class/FinalProject_Group9",
 library(MASS)
 library(Group9LinearModel)
 data(Boston)
-fit = myLm(Boston$crim,Boston[c("age", "medv")])
-fit
+fit = Group9LinearModel::myLm(Boston$crim,Boston[c("age", "medv")])
+print.myLm(fit)
 
-confint(fit)
-confint(fit, alpha=.1)
-confint(fit, alpha=.1, approach="boot")
+confint.myLm(fit)
+confint.myLm(fit, alpha=.1)
+confint.myLm(fit, alpha=.1, approach="boot")
 
-plot(fit)
+plot.myLm(fit)
 qqPlot(fit)
-hist(fit)
+Group9LinearModel::hist.myLm(fit)
 
 
 ?Group9LinearModel

@@ -9,6 +9,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+This package uses least squares matrix calculations to estimate coefficients from regression analysis. Output is displayed below pertains to the data Boston in the library MASS. The myLm function requires the input of response variables and covariates. The output provided includes estimated coefficients, Mean Square Prediction Error, the F Statistic, and P-value. 
+The confint function or confint.myLm will provide confidence intervals for the specified variables, with the option to specify alpha and approach. 
+Visualizations of Residuals vs Fitted Data, qqPlot, and a histogram of residuals are also provided below. 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,

@@ -9,16 +9,7 @@
 #' @return A \code{list} containing the following attributes:
 #' \describe{
 #'      \item{betas}{Coefficient estimates}
-#'      \item{sigma2}{Residual variance}
-#'      \item{variance_beta}{Variance in coefficient estimates}
-#'      \item{residuals}{Vector of residuals}
-#'      \item{predictors}{Matrix of x data}
-#'      \item{y}{Vector of response values}
-#'      \item{df}{degrees of freedom used in calculations}
-#'      \item{yHat}{Predicted y values from regression equation}
 #'      \item{MSPE}{Mean squared prediction error}
-#'      \item{SSM}{Sum of Squares from regression}
-#'      \item{SSE}{Sum of squared error}
 #'      \item{FStatistic}{F statistic for ANOVA test}
 #'      \item{Pvalue}{P-value from F test}
 #' }
@@ -66,18 +57,22 @@ myLm = function(response, covariates) {
   var.beta <- as.numeric(sigma2.hat)*(solve(t(covariates)%*%covariates))
 
   #Compute the Mean Square Prediction Error
-  MSPE=1/n*sum(resid^2)
+  MSPE = (1/n)*sum(resid^2)
 
   #Compute the F-statistic
-  yBar=mean(response)
-  SSM=sum((covariates%*%as.matrix(beta.hat)-yBar)^2)
-  SSE=sum(resid^2)
-  DFM=p-1
-  DFE=n-p
-  MSM=SSM/DFM
-  MSE=SSE/DFE
-  FStat=MSM/MSE
-  Pvalue=pf(FStat,df1=DFM,df2=DFE,lower.tail=FALSE)
+  yBar = mean(response)
+  SSM = sum((covariates%*%as.matrix(beta.hat)-yBar)^2)
+  SSE = sum(resid^2)
+  DFM = p-1
+  DFE = n-p
+  MSM = SSM/DFM
+  MSE = SSE/DFE
+
+  #FStat
+  FStat = MSM/MSE
+
+  #Pvalue
+  Pvalue = pf(FStat,df1=DFM,df2=DFE,lower.tail=FALSE)
 
   # Create myLm class object
   values = list(
@@ -92,12 +87,13 @@ myLm = function(response, covariates) {
     MSPE=MSPE,
     SSM=SSM,
     SSE=SSE,
-    FStatistic=FStat,
+    FStat=FStat,
     Pvalue=Pvalue)
   class(values) <- "myLm"
 
   return(values)
 }
+
 
 print.myLm = function(x) {
   cat("Coefficients:\n")
@@ -105,9 +101,51 @@ print.myLm = function(x) {
   ids = rownames(x$betas)
   for (i in 1:length(ids)) {
     cat(ids[i], ": ", x$betas[i], "\n")
+    }
+  cat("-------------\n")
+  cat("Mean Square Prediction Error in Matrix Form:\n")
+  cat("-------------\n")
+  ids = rownames(x$MSPE)
+  for (i in 1:length(ids)) {
+      cat(ids[i], ": ", x$MSPE[i], "\n")
+    }
+  cat("-------------\n")
+  cat("FStatistic:\n")
+  cat("-------------\n")
+  ids = rownames(x$FStat)
+  for (i in 1:length(ids)) {
+    cat(ids[i], ": ", x$FStat[i], "\n")
+  }
+  cat("-------------\n")
+  cat("Pvalue:\n")
+  cat("-------------\n")
+  ids = rownames(x$Pvalue)
+  for (i in 1:length(ids)) {
+    cat(ids[i], ": ", x$Pvalue[i], "\n")
   }
 }
 
+
+#' @title STAT 6210 Least squares regression estimator
+#'
+#' @description Calculates confidence intervals for estimated coefficients from
+#' regression analysis in myLm function.
+#' @param x \code{x} Output data from myLm.
+#' @param alpha \code{alpha} Specified alpha level
+#' @param approach \code{approach} Can specify Asym or Boot
+#' @return A \code{list} containing the following attributes:
+#' \describe{
+#'      \item{lwr}{lower confidence bound}
+#'      \item{upr}{upper confidence bound}
+#' }
+#' @author Todd Steury, Luke Dolan, and Kerry Cobb
+#' @importFrom stats
+#' @export
+#' @examples
+#' library(MASS)
+#' data(Boston)
+#' fit = myLm(x,alpha=0.05,approach="asym")
+#' fit
 #calculate confidence intervals using asymptotic or bootstrap methods
 confint.myLm=function(x,alpha=0.05,approach="asymp"){
   stopifnot(alpha > 0 && alpha < 1)
@@ -157,6 +195,8 @@ qqPlot = function(x) {
 hist.myLm = function(x) {
   hist(x$residuals,xlab="residuals")
 }
+
+
 
 # library(MASS)
 # library(Group9LinearModel)

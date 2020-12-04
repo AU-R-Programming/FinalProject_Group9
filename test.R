@@ -1,10 +1,9 @@
 library(devtools)
-install_github("AU-R-Programming/FinalProject_Group9")
+install_github("AU-R-Programming/FinalProject_Group9", build_vignettes=TRUE)
 
-install.packages("/Users/kerry/Dropbox/repos/r-class/FinalProject_Group9",
-                 repos = NULL,
-                 type = "source")
-
+# install.packages("/Users/kerry/Dropbox/repos/r-class/FinalProject_Group9",
+                 # repos = NULL,
+                 # type = "source")
 
 library(MASS)
 library(Group9LinearModel)
@@ -21,3 +20,4 @@ qqPlot(fit)
 hist(fit)
 
 ?myLm
+browseVignettes("Group9LinearModel")

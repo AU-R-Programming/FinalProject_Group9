@@ -9,9 +9,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-This package uses least squares matrix calculations to estimate coefficients from regression analysis. Output is displayed below pertains to the data Boston in the library MASS. The myLm function requires the input of response variables and covariates. The output provided includes estimated coefficients, Mean Square Prediction Error, the F Statistic, and P-value. 
-The confint function or confint.myLm will provide confidence intervals for the specified variables, with the option to specify alpha and approach. 
-Visualizations of Residuals vs Fitted Data, qqPlot, and a histogram of residuals are also provided below. 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -19,20 +16,70 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Group9LinearModel
+Repository: https://github.com/AU-R-Programming/FinalProject_Group9
 
+# About
+This package uses least squares matrix calculations to estimate coefficients from regression analysis. Output is displayed below pertains to the data Boston in the library MASS. The myLm function requires the input of response variables and covariates. The output provided includes estimated coefficients, Mean Square Prediction Error, the F Statistic, and P-value. 
+The confint function or confint.myLm will provide confidence intervals for the specified variables, with the option to specify alpha and approach. 
+Visualizations of Residuals vs Fitted Data, qqPlot, and a histogram of residuals are also provided below. 
+
+# Installation
+```{r, eval=FALSE}
+devtools::install_github("AU-R-Programming/FinalProject_Group9", build_vignettes=TRUE)
+```
+
+# Usage
+Load the package into your environment.
+```{r}
+library(Group9LinearModel)
+```
+
+Fit a linear model to some data using least squares and view estimated coefficients,
+mean square error, f-statistic, and p-value.
 ```{r}
 library(MASS)
-library(Group9LinearModel)
 data(Boston)
 fit = myLm(Boston$crim, Boston[c("age", "medv")])
 fit
-
-confint(fit)
-confint(fit, alpha=.1)
-confint(fit, alpha=.1, approach="boot")
-
-plot(fit)
-qqPlot(fit)
-hist(fit)
-
 ```
+
+Compute a confidence interval for the estimated coefficients
+```{r}
+confint(fit)
+```
+
+The default alpha value is 0.5. A different alpha value can be used using the 
+alpha keyword.
+```{r}
+confint(fit, alpha=.1)
+```
+
+By default the confidence interval is an asymptotic confidence interval. It can 
+be calculated through bootstrapping by using the `"boot"` keyword for the approach
+keyword.
+```{r}
+confint(fit, approach="boot")
+```
+
+
+## Diagnostic Plots
+Plot fitted values vs residuals:
+```{r}
+plot(fit)
+```
+
+Make Q-Q plot, plot sample quantiles against quantiles of a normal distribution:
+```{r}
+qqPlot(fit)
+```
+
+Plot histogram of residual values:
+```{r}
+hist(fit)
+```
+
+# R Shiny App
+See example of how to create an R Shiny App in the examples folder at
+https://github.com/AU-R-Programming/FinalProject_Group9
+

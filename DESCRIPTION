@@ -2,12 +2,7 @@ Package: Group9LinearModel
 Type: Package
 Title: Least Squares Regression 
 Version: 0.1.0
-Authors@R: c(
-     person("Todd", "Steury", role="aut"),
-     person("Luke", "Dolan", role="aut"),
-     person("Kerry", "Cobb", role="aut")
-     )
-Maintainer: Not maintained
+Authors: Todd Steury, Luke Dolan, Kerry Cobb
 Description: Tool for least squares linear regression. 
 License: MIT 
 Encoding: UTF-8

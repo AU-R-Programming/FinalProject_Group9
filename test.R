@@ -20,4 +20,4 @@ plot(fit)
 qqPlot(fit)
 hist(fit)
 
-?Group9LinearModel
+?myLm

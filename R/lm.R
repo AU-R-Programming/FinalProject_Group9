@@ -101,28 +101,19 @@ print.myLm = function(x) {
   ids = rownames(x$betas)
   for (i in 1:length(ids)) {
     cat(ids[i], ": ", x$betas[i], "\n")
-    }
-  cat("-------------\n")
-  cat("Mean Square Prediction Error in Matrix Form:\n")
-  cat("-------------\n")
-  ids = rownames(x$MSPE)
-  for (i in 1:length(ids)) {
-      cat(ids[i], ": ", x$MSPE[i], "\n")
-    }
-  cat("-------------\n")
-  cat("FStatistic:\n")
-  cat("-------------\n")
-  ids = rownames(x$FStat)
-  for (i in 1:length(ids)) {
-    cat(ids[i], ": ", x$FStat[i], "\n")
   }
-  cat("-------------\n")
-  cat("Pvalue:\n")
-  cat("-------------\n")
-  ids = rownames(x$Pvalue)
-  for (i in 1:length(ids)) {
-    cat(ids[i], ": ", x$Pvalue[i], "\n")
-  }
+
+  cat("\nMean Square Prediction Error:\n")
+  cat("-----------------------------\n")
+  cat(x$MSPE, "\n")
+
+  cat("\nFStatistic:\n")
+  cat("-----------\n")
+  cat(x$FStat, "\n")
+
+  cat("\nPvalue:\n")
+  cat("-------\n")
+  cat(x$Pvalue, "\n")
 }
 
 
@@ -144,8 +135,10 @@ print.myLm = function(x) {
 #' @examples
 #' library(MASS)
 #' data(Boston)
-#' fit = myLm(x,alpha=0.05,approach="asym")
-#' fit
+#' fit = myLm(Boston$crim,Boston[c("age", "medv")])
+#' # Compute asymptotic confidence interval with alpha of 0.05
+#' confint(fit)
+#'
 #calculate confidence intervals using asymptotic or bootstrap methods
 confint.myLm=function(x,alpha=0.05,approach="asymp"){
   stopifnot(alpha > 0 && alpha < 1)
@@ -203,7 +196,7 @@ hist.myLm = function(x) {
 # data(Boston)
 # fit = myLm(Boston$crim,Boston[c("age", "medv")])
 # fit
-#
+
 # confint(fit)
 # confint(fit, alpha=.1)
 # confint(fit, alpha=.1, approach="boot")
@@ -211,4 +204,4 @@ hist.myLm = function(x) {
 # plot(fit)
 # qqPlot(fit)
 # hist(fit)
-
+#

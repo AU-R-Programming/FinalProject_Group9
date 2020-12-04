@@ -31,7 +31,7 @@ devtools::install_github("AU-R-Programming/FinalProject_Group9", build_vignettes
 
 # Getting Help
 Show function documentation
-```{r}
+```{r, eval=FALSE}
 ?myLm
 ?confint
 ```

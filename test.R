@@ -23,3 +23,5 @@ hist(fit)
 
 browseVignettes("Group9LinearModel")
 
+# devtools::document()
+# build_vignettes("~/Dropbox/repos/r-class/FinalProject_Group9")

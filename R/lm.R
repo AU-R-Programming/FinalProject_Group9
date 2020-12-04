@@ -1,5 +1,35 @@
-
-
+#' @title STAT 6210 Least squares regression estimator
+#'
+#' @description Uses least squares matrix calculations to estimate coefficients
+#' from regression analysis.
+#' @param response \code{vector} of dimension 1 that represents the y values
+#' for the regression analysis.
+#' @param covariates \code{matrix} vector, matrix, or data.frame representing
+#' the x variables for the regression analysis
+#' @return A \code{list} containing the following attributes:
+#' \describe{
+#'      \item{betas}{Coefficient estimates}
+#'      \item{sigma2}{Residual variance}
+#'      \item{variance_beta}{Variance in coefficient estimates}
+#'      \item{residuals}{Vector of residuals}
+#'      \item{predictors}{Matrix of x data}
+#'      \item{y}{Vector of response values}
+#'      \item{df}{degrees of freedom used in calculations}
+#'      \item{yHat}{Predicted y values from regression equation}
+#'      \item{MSPE}{Mean squared prediction error}
+#'      \item{SSM}{Sum of Squares from regression}
+#'      \item{SSE}{Sum of squared error}
+#'      \item{FStatistic}{F statistic for ANOVA test}
+#'      \item{Pvalue}{P-value from F test}
+#' }
+#' @author Todd Steury, Luke Dolan, and Kerry Cobb
+#' @importFrom stats
+#' @export
+#' @examples
+#' library(MASS)
+#' data(Boston)
+#' fit = myLm(Boston$crim,Boston[c("age", "medv")])
+#' fit
 myLm = function(response, covariates) {
 
   stopifnot(length(response) == nrow(covariates))

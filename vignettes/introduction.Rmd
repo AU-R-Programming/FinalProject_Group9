@@ -20,8 +20,8 @@ knitr::opts_chunk$set(
 Repository: https://github.com/AU-R-Programming/FinalProject_Group9
 
 # About
-This package uses least squares matrix calculations to estimate coefficients from regression analysis. Output is displayed below pertains to the data Boston in the library MASS. The myLm function requires the input of response variables and covariates. The output provided includes estimated coefficients, Mean Square Prediction Error, the F Statistic, and P-value. 
-The confint function or confint.myLm will provide confidence intervals for the specified variables, with the option to specify alpha and approach. 
+This package uses least squares matrix calculations to estimate coefficients from regression analysis. Output as displayed below pertains to the 'Boston' data in the MASS library. The myLm function requires the input of response (y) variables and covariates (x). The output provided includes estimated coefficients, Mean Square Prediction Error, the F Statistic, and P-value. 
+The confint function or confint.myLm will provide confidence intervals for the specified variables, with the option to specify alpha and approach (using asymptotics - "asymp" or bootstrapping "boot"). 
 Visualizations of Residuals vs Fitted Data, qqPlot, and a histogram of residuals are also provided below. 
 
 # Installation
@@ -33,7 +33,7 @@ devtools::install_github("AU-R-Programming/FinalProject_Group9", build_vignettes
 Show function documentation
 ```{r, eval=FALSE}
 ?myLm
-?confint
+?confint.myLm
 ```
 
 # Usage
@@ -43,7 +43,7 @@ library(Group9LinearModel)
 ```
 
 Fit a linear model to some data using least squares and view estimated coefficients,
-mean square error, f-statistic, and p-value.
+mean square prediction error, f-statistic, and p-value.
 ```{r}
 library(MASS)
 data(Boston)
@@ -56,15 +56,14 @@ Compute a confidence interval for the estimated coefficients
 confint(fit)
 ```
 
-The default alpha value is 0.5. A different alpha value can be used using the 
-alpha keyword.
+The default alpha value is 0.05. A different alpha value can be used using the 
+alpha argument.
 ```{r}
 confint(fit, alpha=.1)
 ```
 
-By default the confidence interval is an asymptotic confidence interval. It can 
-be calculated through bootstrapping by using the `"boot"` keyword for the approach
-keyword.
+By default, the confidence interval is an asymptotic confidence interval. However, confidence limits can also be calculated through bootstrapping by using the `"boot"` keyword for the approach
+argument. 
 ```{r}
 confint(fit, approach="boot")
 ```

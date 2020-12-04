@@ -186,7 +186,7 @@ qqPlot = function(x) {
 
 # Plot histogram with residuals
 hist.myLm = function(x) {
-  hist(x$residuals,xlab="residuals")
+  hist(x$residuals,xlab="residuals",main=paste("Histogram of residuals"))
 }
 
 

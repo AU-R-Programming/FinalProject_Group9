@@ -22,3 +22,4 @@ hist(fit)
 ?confint.myLm
 
 browseVignettes("Group9LinearModel")
+

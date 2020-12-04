@@ -17,16 +17,7 @@ the x variables for the regression analysis}
 A \code{list} containing the following attributes:
 \describe{
      \item{betas}{Coefficient estimates}
-     \item{sigma2}{Residual variance}
-     \item{variance_beta}{Variance in coefficient estimates}
-     \item{residuals}{Vector of residuals}
-     \item{predictors}{Matrix of x data}
-     \item{y}{Vector of response values}
-     \item{df}{degrees of freedom used in calculations}
-     \item{yHat}{Predicted y values from regression equation}
      \item{MSPE}{Mean squared prediction error}
-     \item{SSM}{Sum of Squares from regression}
-     \item{SSE}{Sum of squared error}
      \item{FStatistic}{F statistic for ANOVA test}
      \item{Pvalue}{P-value from F test}
 }

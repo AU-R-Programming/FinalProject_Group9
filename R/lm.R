@@ -203,5 +203,7 @@ hist.myLm = function(x) {
 #
 # plot(fit)
 # qqPlot(fit)
+# qqPlot(fit)
+# qqPlot(fit)
 # hist(fit)
 #

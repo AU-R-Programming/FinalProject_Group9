@@ -29,6 +29,13 @@ Visualizations of Residuals vs Fitted Data, qqPlot, and a histogram of residuals
 devtools::install_github("AU-R-Programming/FinalProject_Group9", build_vignettes=TRUE)
 ```
 
+# Getting Help
+Show function documentation
+```{r}
+?myLm
+?confint
+```
+
 # Usage
 Load the package into your environment.
 ```{r}
